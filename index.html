@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Daria Bohuslavska — Nieruchomości | Trójmiasto</title>
+<title>Daria Bohuslavska — Nieruchomości premium w Trójmieście</title>
+<meta name="description" content="Sprzedaż, zakup i wynajem nieruchomości w Gdańsku, Gdyni i Sopocie. Rzetelna wycena, profesjonalne sesje zdjęciowe i pełna obsługa transakcji aż do aktu notarialnego." />
+<meta property="og:title" content="Daria Bohuslavska — Nieruchomości premium w Trójmieście" />
+<meta property="og:description" content="Sprzedaż, zakup i wynajem nieruchomości w Gdańsku, Gdyni i Sopocie. Pełna obsługa transakcji." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/img/zespol/team.jpg" />
+<meta name="theme-color" content="#1c1916" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231c1916'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' fill='%23e0a39c' text-anchor='middle'%3EDB%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -11,14 +18,19 @@
   :root{
     --paper:#f4f0e9;
     --paper-2:#ece6db;
+    --paper-3:#e3dccd;
     --ink:#1c1916;
+    --ink-2:#26211b;
     --ink-soft:#574f46;
     --line:#cdc4b4;
     --accent:#8c2f2a;
     --accent-deep:#6f231f;
+    --accent-soft:#e0a39c;
+    --shadow-1:0 1px 2px rgba(28,25,22,.04),0 8px 24px -16px rgba(111,35,31,.4);
+    --shadow-2:0 30px 60px -32px rgba(28,25,22,.5),0 12px 28px -18px rgba(140,47,42,.35);
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
   body{
     background:var(--paper);
     color:var(--ink);
@@ -29,14 +41,17 @@
     -webkit-font-smoothing:antialiased;
   }
   ::selection{background:var(--accent);color:var(--paper)}
-  h1,h2,h3,h4{font-family:'Bodoni Moda',serif;font-weight:500;line-height:1.02;letter-spacing:-0.02em}
+  h1,h2,h3,h4{font-family:'Bodoni Moda',serif;font-weight:500;line-height:1.02;letter-spacing:-0.02em;text-wrap:balance}
+  p{text-wrap:pretty}
   a{color:inherit;text-decoration:none}
   img{display:block;width:100%;height:100%;object-fit:cover}
   .wrap{max-width:1320px;margin:0 auto;padding:0 28px}
   .eyebrow{font-family:'Hanken Grotesk',sans-serif;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;font-weight:500;color:var(--accent)}
   .muted{color:var(--ink-soft)}
 
-  /* image frame + blur fallback */
+  .grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.04;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--accent);z-index:70;transition:width .1s linear}
+
   .frame{position:relative;overflow:hidden;background:var(--paper-2)}
   .frame::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(28,25,22,.06);pointer-events:none}
   .frame img{transition:opacity .9s ease,transform 1.4s cubic-bezier(.2,.7,.2,1)}
@@ -53,7 +68,6 @@
     background:repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 10px,rgba(28,25,22,.03) 10px 20px);
   }
 
-  /* header */
   header{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .4s ease,box-shadow .4s ease,padding .4s ease;padding:22px 0}
   header.scrolled{background:rgba(244,240,233,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line);padding:14px 0}
   .nav{display:flex;align-items:center;justify-content:space-between;gap:24px}
@@ -62,14 +76,16 @@
   .menu{display:flex;align-items:center;gap:34px}
   .menu a.link{position:relative;font-size:.88rem;letter-spacing:.02em;color:var(--ink-soft);transition:color .3s ease}
   .menu a.link::after{content:"";position:absolute;left:0;bottom:-6px;width:100%;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
-  .menu a.link:hover,.menu a.link:focus-visible{color:var(--ink)}
-  .menu a.link:hover::after,.menu a.link:focus-visible::after{transform:scaleX(1)}
-  .btn{display:inline-flex;align-items:center;gap:9px;font-size:.86rem;letter-spacing:.02em;font-weight:500;padding:13px 22px;border-radius:999px;background:var(--ink);color:var(--paper);transition:transform .3s ease,background .3s ease;will-change:transform}
-  .btn:hover,.btn:focus-visible{background:var(--accent);transform:translateY(-2px)}
+  .menu a.link:hover,.menu a.link:focus-visible,.menu a.link.active{color:var(--ink)}
+  .menu a.link:hover::after,.menu a.link:focus-visible::after,.menu a.link.active::after{transform:scaleX(1)}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-size:.86rem;letter-spacing:.02em;font-weight:500;padding:13px 22px;border-radius:999px;background:var(--ink);color:var(--paper);box-shadow:var(--shadow-1);transition:transform .3s ease,background .3s ease,box-shadow .3s ease;will-change:transform}
+  .btn:hover,.btn:focus-visible{background:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow-2)}
   .btn:active{transform:translateY(0)}
-  .btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
-  .btn-ghost:hover,.btn-ghost:focus-visible{background:var(--ink);color:var(--paper);box-shadow:inset 0 0 0 1px var(--ink)}
+  .btn-ghost{background:transparent;color:var(--paper);box-shadow:inset 0 0 0 1px rgba(244,240,233,.4)}
+  .btn-ghost:hover,.btn-ghost:focus-visible{background:var(--paper);color:var(--ink);box-shadow:inset 0 0 0 1px var(--paper)}
   :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .skip{position:absolute;left:-9999px;top:0;z-index:80;background:var(--ink);color:var(--paper);padding:12px 18px;border-radius:0 0 8px 0}
+  .skip:focus{left:0}
 
   .burger{display:none;flex-direction:column;gap:5px;width:42px;height:42px;align-items:center;justify-content:center;border-radius:50%;box-shadow:inset 0 0 0 1px var(--line);background:transparent}
   .burger span{width:18px;height:1.5px;background:var(--ink);transition:transform .35s ease,opacity .3s ease}
@@ -81,112 +97,100 @@
   .mobile-menu a{font-family:'Bodoni Moda',serif;font-size:2.4rem;padding:10px 0;border-bottom:1px solid var(--line)}
   .mobile-menu .mcta{margin-top:32px}
 
-  /* hero — hidden until first scroll */
-  .hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;padding:0;overflow:hidden}
+  .hero{position:relative;min-height:100dvh;display:flex;align-items:flex-end;overflow:hidden}
   .hero-bg{position:absolute;inset:0;z-index:0}
-  .hero-bg img{transform:scale(1.06);object-position:center 28%}
-  .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,17,14,.5) 0%,rgba(20,17,14,.12) 32%,rgba(20,17,14,.55) 66%,rgba(20,17,14,.9) 100%)}
-  .hero .wrap{position:relative;z-index:2;width:100%;padding-top:120px;padding-bottom:80px;text-align:center;display:flex;flex-direction:column;align-items:center}
-  .hero .tagline{font-family:'Bodoni Moda',serif;font-style:italic;font-size:clamp(2.4rem,6vw,5rem);color:var(--paper);line-height:1.1;letter-spacing:-0.02em;max-width:16ch}
-  .hero .divider{width:48px;height:1px;background:rgba(244,240,233,.35);margin:24px 0 20px}
-  .hero .services{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;font-size:clamp(.78rem,1.4vw,1rem);letter-spacing:.28em;text-transform:uppercase;color:rgba(244,240,233,.7)}
+  .hero-bg img{transform:scale(1.06);object-position:center 42%}
+  .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,17,14,.55) 0%,rgba(20,17,14,.12) 30%,rgba(20,17,14,.5) 64%,rgba(20,17,14,.92) 100%)}
+  .hero .wrap{position:relative;z-index:2;width:100%;padding-top:130px;padding-bottom:64px}
+  .hero .lead{font-family:'Hanken Grotesk',sans-serif;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:22px}
+  .hero h1{font-family:'Bodoni Moda',serif;font-style:italic;font-size:clamp(2.8rem,8vw,6.4rem);color:var(--paper);line-height:1.02;letter-spacing:-0.02em;max-width:15ch}
+  .hero .sub{margin-top:24px;max-width:46ch;color:rgba(244,240,233,.84);font-size:clamp(1rem,1.6vw,1.2rem)}
+  .hero .cta-row{margin-top:38px;display:flex;gap:14px;flex-wrap:wrap}
+  .hero .services{margin-top:46px;display:flex;gap:14px;flex-wrap:wrap;font-size:clamp(.72rem,1.2vw,.84rem);letter-spacing:.28em;text-transform:uppercase;color:rgba(244,240,233,.7)}
+  .hero .services span:nth-child(even){color:rgba(244,240,233,.4)}
   .hero .reveal{opacity:0;transform:translateY(18px)}
 
-  /* social proof */
-  .proof{padding:70px 0;background:var(--ink);color:var(--paper)}
-  .proof .eyebrow{color:#e0a39c}
+  .proof{padding:78px 0;background:var(--ink);color:var(--paper);position:relative}
+  .proof::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 85% 0%,rgba(140,47,42,.22),transparent 55%);pointer-events:none}
+  .proof .wrap{position:relative}
+  .proof .eyebrow{color:var(--accent-soft)}
   .proof-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:46px}
-  .proof-quote{font-family:'Bodoni Moda',serif;font-style:italic;font-size:clamp(1.3rem,2.6vw,1.85rem);line-height:1.4;max-width:24ch;color:var(--paper);filter:blur(12px);opacity:.35;transition:filter 1s ease,opacity 1s ease}
-  .proof-quote.unblur{filter:blur(0);opacity:1}
+  .proof-quote{font-family:'Bodoni Moda',serif;font-style:italic;font-size:clamp(1.3rem,2.6vw,1.95rem);line-height:1.4;max-width:24ch;color:var(--paper)}
   .proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(244,240,233,.16)}
-  .stat{background:var(--ink);padding:34px 30px;display:flex;flex-direction:column;gap:8px}
-  .stat .num{font-family:'Bodoni Moda',serif;font-size:clamp(2.6rem,5vw,3.6rem);line-height:1;color:#e0a39c}
-  .stat .lbl{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,240,233,.7);filter:blur(12px);opacity:.35;transition:filter 1s ease,opacity 1s ease}
-  .stat.unblur .lbl{filter:blur(0);opacity:1}
+  .stat{background:var(--ink);padding:34px 30px;display:flex;flex-direction:column;gap:8px;transition:background .4s ease}
+  .stat:hover{background:var(--ink-2)}
+  .stat .num{font-family:'Bodoni Moda',serif;font-size:clamp(2.6rem,5vw,3.6rem);line-height:1;color:var(--accent-soft);font-variant-numeric:tabular-nums}
+  .stat .lbl{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,240,233,.7)}
 
-  /* nasze inwestycje */
-  .inv-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
-  .inv-frame{aspect-ratio:4/5;border-radius:2px}
+  section{padding:118px 0 132px;position:relative}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:62px;flex-wrap:wrap}
+  .sec-head h2{font-size:clamp(2.4rem,6vw,4.6rem)}
+  .sec-head .idx{font-family:'Bodoni Moda',serif;font-style:italic;font-size:1rem;color:var(--accent)}
+
+  #o-mnie .grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:78px;align-items:center}
+  .about-media{position:relative;aspect-ratio:5/6}
+  .about-media .main{position:absolute;inset:0;border-radius:2px;box-shadow:var(--shadow-2)}
+  .about-media .inset{position:absolute;right:-30px;bottom:-36px;width:48%;aspect-ratio:3/4;border-radius:2px;box-shadow:var(--shadow-2)}
+  .about-media .inset::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 4px var(--paper)}
+  .about-copy h2{font-size:clamp(2.2rem,5vw,3.8rem);margin:14px 0 26px}
+  .about-copy p{font-size:1.12rem;color:var(--ink-soft);max-width:48ch}
+  .about-copy p + p{margin-top:16px}
+  .about-sign{margin-top:30px;display:flex;align-items:center;gap:16px}
+  .about-sign .nm{font-family:'Bodoni Moda',serif;font-style:italic;font-size:1.4rem;color:var(--ink)}
+  .about-sign .rl{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+  .about-strip{margin-top:84px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .about-strip .frame{border-radius:2px;box-shadow:var(--shadow-1)}
+
+  .offers{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+  .card{display:flex;flex-direction:column;gap:18px}
+  .card .ph{aspect-ratio:4/5;border-radius:2px;box-shadow:var(--shadow-1)}
+  .card .ph img{transition:transform 1.3s cubic-bezier(.2,.7,.2,1)}
+  .card:hover .ph img{transform:scale(1.05)}
+  .card:nth-child(2){margin-top:48px}
+  .card .meta{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+  .card .price{font-family:'Bodoni Moda',serif;font-size:1.5rem;color:var(--ink);font-variant-numeric:tabular-nums}
+  .card .status{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);padding:5px 12px;border:1px solid var(--line);border-radius:999px}
+  .card .loc{font-size:1.05rem;color:var(--ink)}
+  .card .specs{display:flex;gap:18px;font-size:.9rem;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:14px;margin-top:auto}
+
+  #inwestycje .inv-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+  .inv-frame{aspect-ratio:4/5;border-radius:2px;box-shadow:var(--shadow-1)}
   .inv-frame:nth-child(1){margin-top:46px}
-  .inv-wide{aspect-ratio:21/9;border-radius:2px;margin-top:28px}
+  .inv-wide{aspect-ratio:21/9;border-radius:2px;margin-top:28px;box-shadow:var(--shadow-1)}
   .inv-wide .ov,.inv-frame .ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,17,14,.5),transparent 55%);z-index:1;pointer-events:none}
   .inv-frame img,.inv-wide img{transition:transform 1.3s cubic-bezier(.2,.7,.2,1)}
   .inv-frame:hover img,.inv-wide:hover img{transform:scale(1.05)}
 
-  /* gallery (oferty) */
-  .gallery{columns:3;column-gap:22px}
-  .gframe{position:relative;overflow:hidden;background:var(--paper-2);margin:0 0 22px;break-inside:avoid;border-radius:2px}
+  #galeria .gallery{columns:3;column-gap:22px}
+  .gframe{position:relative;overflow:hidden;background:var(--paper-2);margin:0 0 22px;break-inside:avoid;border-radius:2px;box-shadow:var(--shadow-1)}
   .gframe::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(28,25,22,.08);background:linear-gradient(to top,rgba(20,17,14,.42),transparent 50%);pointer-events:none}
   .gframe img{width:100%;height:auto;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
   .gframe:hover img{transform:scale(1.05)}
 
-  section{padding:110px 0;position:relative}
-  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:60px;flex-wrap:wrap}
-  .sec-head h2{font-size:clamp(2.4rem,6vw,4.6rem)}
-  .sec-head .idx{font-family:'Bodoni Moda',serif;font-style:italic;font-size:1rem;color:var(--accent)}
-
-  /* about */
-  #o-mnie .grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:78px;align-items:center}
-  .about-media{position:relative;aspect-ratio:5/6}
-  .about-media .main{position:absolute;inset:0;border-radius:2px}
-  .about-media .inset{position:absolute;right:-30px;bottom:-36px;width:48%;aspect-ratio:3/4;border-radius:2px;box-shadow:0 30px 60px -28px rgba(28,25,22,.55),0 8px 20px -12px rgba(140,47,42,.4)}
-  .about-media .inset::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 4px var(--paper)}
-  .about-copy p{font-size:1.12rem;color:var(--ink-soft);max-width:46ch}
-  .about-copy p + p{margin-top:16px}
-  .about-copy h2{font-size:clamp(2.2rem,5vw,3.8rem);margin:14px 0 26px}
-
-  /* offers */
-  .offers{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
-  .card{display:flex;flex-direction:column;gap:18px}
-  .card .ph{aspect-ratio:4/5;border-radius:2px}
-  .card:nth-child(2){margin-top:48px}
-  .card .meta{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
-  .card .price{font-family:'Bodoni Moda',serif;font-size:1.5rem;color:var(--ink)}
-  .card .status{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);padding:5px 12px;border:1px solid var(--line);border-radius:999px}
-  .card .loc{font-size:1.05rem;color:var(--ink)}
-  .card .specs{display:flex;gap:18px;font-size:.9rem;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:14px}
-
-  /* process */
   #proces{background:var(--ink);color:var(--paper)}
-  #proces .eyebrow,#proces .sec-head .idx{color:#d98a82}
+  #proces .eyebrow,#proces .sec-head .idx{color:var(--accent-soft)}
   #proces .sec-head h2{color:var(--paper)}
   .steps{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(244,240,233,.16)}
   .step{background:var(--ink);padding:46px 38px;display:flex;flex-direction:column;gap:16px;transition:background .4s ease}
-  .step:hover{background:#262019}
-  .step .n{font-family:'Bodoni Moda',serif;font-size:3.4rem;font-style:italic;color:#d98a82;line-height:1}
+  .step:hover{background:var(--ink-2)}
+  .step .n{font-family:'Bodoni Moda',serif;font-size:3.4rem;font-style:italic;color:var(--accent-soft);line-height:1}
   .step h3{font-size:1.5rem;color:var(--paper)}
-  .step p{color:rgba(244,240,233,.72);font-size:1rem;filter:blur(12px);opacity:.35;transition:filter 1s ease,opacity 1s ease}
-  .step.unblur p{filter:blur(0);opacity:1}
+  .step p{color:rgba(244,240,233,.72);font-size:1rem;max-width:42ch}
 
-  /* blur-text — rozmyte teksty odblurowujące się przy scrollu */
-  .blur-text{filter:blur(12px);opacity:.4;transition:filter 1s ease,opacity 1s ease}
-  .blur-text.unblur{filter:blur(0);opacity:1}
-  
-  /* skeleton lines placeholder */
-  .skeleton-line{background:linear-gradient(90deg,rgba(28,25,22,.12),rgba(28,25,22,.08),rgba(28,25,22,.12));background-size:200% 100%;animation:shimmer 2s infinite;height:0.9em;border-radius:2px;filter:blur(14px);opacity:.35}
-  .skeleton-line:nth-child(1){width:95%}
-  .skeleton-line:nth-child(2){width:88%}
-  .skeleton-line:nth-child(3){width:92%}
-  .skeleton-line:nth-child(4){width:85%}
-  @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-
-  /* opinie */
   .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
-  .quote{padding:44px 40px;background:var(--paper-2);border-radius:2px;position:relative}
+  .quote{padding:44px 40px;background:var(--paper-2);border-radius:2px;position:relative;box-shadow:var(--shadow-1)}
   .quote::before{content:"\201C";font-family:'Bodoni Moda',serif;font-size:6rem;color:var(--accent);opacity:.28;position:absolute;top:6px;left:24px;line-height:1}
-  .quote p{font-family:'Bodoni Moda',serif;font-style:italic;font-size:1.4rem;line-height:1.4;position:relative;color:var(--ink);filter:blur(12px);opacity:.35;transition:filter 1s ease,opacity 1s ease}
-  .quote.unblur p{filter:blur(0);opacity:1}
+  .quote p{font-family:'Bodoni Moda',serif;font-style:italic;font-size:1.32rem;line-height:1.42;position:relative;color:var(--ink)}
   .quote .who{margin-top:24px;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
 
-  /* zespol */
-  .team-wide{aspect-ratio:16/9;border-radius:2px;margin-top:14px}
-  .team-cap{margin-top:18px;font-size:.92rem;letter-spacing:.04em;color:var(--ink-soft);text-align:center}
+  #zespol .team-wide{aspect-ratio:16/9;border-radius:2px;margin-top:14px;box-shadow:var(--shadow-2)}
   #zespol .copy{max-width:54ch;font-size:1.12rem;color:var(--ink-soft)}
+  .team-cap{margin-top:20px;font-size:.92rem;letter-spacing:.04em;color:var(--ink-soft);text-align:center}
 
-  /* kontakt */
   #kontakt{background:var(--paper-2)}
   .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
   #kontakt h2{font-size:clamp(2.6rem,7vw,5.4rem)}
+  #kontakt .lede{margin-top:22px;max-width:42ch;font-size:1.12rem;color:var(--ink-soft)}
   .contact-list{display:flex;flex-direction:column;gap:2px}
   .contact-row{display:flex;flex-direction:column;gap:4px;padding:24px 0;border-top:1px solid var(--line)}
   .contact-row:last-child{border-bottom:1px solid var(--line)}
@@ -196,6 +200,9 @@
 
   footer{padding:46px 0;border-top:1px solid var(--line);background:var(--paper)}
   .foot{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:.82rem;color:var(--ink-soft);letter-spacing:.04em}
+  .foot-links{display:flex;gap:22px}
+  .foot-links a{transition:color .3s ease}
+  .foot-links a:hover,.foot-links a:focus-visible{color:var(--accent)}
 
   .reveal{opacity:0;transform:translateY(34px)}
 
@@ -203,50 +210,61 @@
     .menu{display:none}
     .burger{display:flex}
     #o-mnie .grid{grid-template-columns:1fr;gap:80px}
-    .about-media{aspect-ratio:4/3;max-width:440px}
+    .about-media{aspect-ratio:4/3;max-width:460px}
     .about-media .inset{width:42%}
+    .about-strip{grid-template-columns:1fr 1fr}
     .proof-grid{grid-template-columns:repeat(2,1fr)}
-    .inv-grid{grid-template-columns:1fr;gap:24px}
+    .offers{grid-template-columns:1fr;gap:34px}
+    .card:nth-child(2){margin-top:0}
+    #inwestycje .inv-grid{grid-template-columns:1fr;gap:24px}
     .inv-frame:nth-child(1){margin-top:0}
     .inv-wide{aspect-ratio:16/9}
-    .gallery{columns:2}
+    #galeria .gallery{columns:2}
     .steps{grid-template-columns:1fr}
     .quotes{grid-template-columns:1fr}
     .contact-grid{grid-template-columns:1fr;gap:34px}
-    section{padding:78px 0}
-    .hero .wrap{padding-top:120px;padding-bottom:60px}
+    section{padding:80px 0 88px}
+    .hero .wrap{padding-top:120px;padding-bottom:56px}
   }
   @media(max-width:520px){
     .wrap{padding:0 20px}
-    .gallery{columns:1}
+    #galeria .gallery{columns:1}
+    .about-strip{grid-template-columns:1fr}
     .proof-grid{grid-template-columns:1fr}
     .hero .cta-row{flex-direction:column;align-items:stretch}
     .hero .cta-row .btn{justify-content:center}
   }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .reveal,.hero .reveal{opacity:1;transform:none}
+  }
 </style>
 </head>
 <body>
+<a href="#main" class="skip">Przejdź do treści</a>
+<div class="grain"></div>
+<div class="progress" id="progress"></div>
 
 <header id="header">
   <div class="wrap nav">
     <a href="#top" class="logo">Daria <span>Bohuslavska</span></a>
     <nav class="menu">
       <a class="link" href="#o-mnie">O nas</a>
-      <a class="link" href="#inwestycje">Inwestycje</a>
       <a class="link" href="#oferty">Oferty</a>
+      <a class="link" href="#inwestycje">Inwestycje</a>
       <a class="link" href="#proces">Proces</a>
       <a class="link" href="#opinie">Opinie</a>
       <a class="link" href="#kontakt">Kontakt</a>
       <a class="btn" href="#kontakt">Napisz wiadomość</a>
     </nav>
-    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="#o-mnie">O nas</a>
-  <a href="#inwestycje">Inwestycje</a>
   <a href="#oferty">Oferty</a>
+  <a href="#inwestycje">Inwestycje</a>
   <a href="#proces">Proces</a>
   <a href="#opinie">Opinie</a>
   <a href="#kontakt">Kontakt</a>
@@ -254,26 +272,31 @@
 </div>
 
 <main id="top">
-  <section class="hero" id="hero">
-    <div class="hero-bg"><div class="frame" style="height:100%"><img src="assets/img/zespol/team.jpg" alt="Zespół Daria Bohuslavska Nieruchomości" loading="eager" /></div></div>
-    <div class="wrap">
-      <p class="tagline reveal">Detale mają znaczenie</p>
-      <div class="divider reveal"></div>
-      <div class="services reveal"><span>Sprzedaż</span><span>•</span><span>Wynajem</span><span>•</span><span>Analiza</span></div>
+  <section class="hero" id="hero" aria-label="Wprowadzenie">
+    <div class="hero-bg"><div class="frame" style="height:100%"><img src="assets/img/oferty/02.jpg" alt="Dom na sprzedaż w okolicach Trójmiasta o zachodzie słońca" loading="eager" /></div></div>
+    <div class="wrap" id="main">
+      <p class="lead reveal">Nieruchomości premium · Gdańsk · Gdynia · Sopot</p>
+      <h1 class="reveal">Detale, które sprzedają dom</h1>
+      <p class="sub reveal">Prowadzimy sprzedaż, zakup i wynajem nieruchomości w całym Trójmieście — od rzetelnej wyceny po podpisanie aktu notarialnego.</p>
+      <div class="cta-row reveal">
+        <a class="btn" href="#oferty">Zobacz oferty</a>
+        <a class="btn btn-ghost" href="#kontakt">Umów wycenę</a>
+      </div>
+      <div class="services reveal"><span>Sprzedaż</span><span>·</span><span>Wynajem</span><span>·</span><span>Analiza rynku</span></div>
     </div>
   </section>
 
-  <section class="proof" id="proof">
+  <section class="proof" id="proof" aria-label="Liczby">
     <div class="wrap">
       <div class="proof-head reveal">
         <p class="eyebrow">Zaufanie klientów</p>
-        <p class="proof-quote" style="filter:blur(16px);opacity:.2">Liczby, które budują się latami pracy na rynku Trójmiasta.</p>
+        <p class="proof-quote">Liczby, które budują się latami pracy na rynku Trójmiasta.</p>
       </div>
       <div class="proof-grid">
-        <div class="stat reveal"><span class="num">120+</span><span class="lbl">Sfinalizowanych transakcji</span></div>
+        <div class="stat reveal"><span class="num">127</span><span class="lbl">Sfinalizowanych transakcji</span></div>
         <div class="stat reveal"><span class="num">8 lat</span><span class="lbl">Doświadczenia na rynku</span></div>
         <div class="stat reveal"><span class="num">98%</span><span class="lbl">Klientów poleca dalej</span></div>
-        <div class="stat reveal"><span class="num">14 dni</span><span class="lbl">Średni czas sprzedaży</span></div>
+        <div class="stat reveal"><span class="num">21 dni</span><span class="lbl">Średni czas sprzedaży</span></div>
       </div>
     </div>
   </section>
@@ -282,30 +305,55 @@
     <div class="wrap grid">
       <div class="reveal">
         <div class="about-media">
-          <div class="frame main"><img src="O%20nas/team.jpg" alt="Zespół Daria Bohuslavska Nieruchomości" /></div>
-          <div class="frame inset"><img src="O%20nas/realizacje.jpg" alt="Wnętrze nieruchomości z oferty" /></div>
+          <div class="frame main"><img src="assets/img/o-mnie/portret.jpg" alt="Daria Bohuslavska, ekspertka rynku nieruchomości w Trójmieście" /></div>
+          <div class="frame inset"><img src="O%20nas/realizacje.jpg" alt="Wnętrze nieruchomości z portfolio" /></div>
         </div>
       </div>
       <div class="about-copy reveal">
         <p class="eyebrow">O nas</p>
         <h2>Spokojna pewność na każdym etapie</h2>
-        <p><span class="skeleton-line"></span><span class="skeleton-line"></span><span class="skeleton-line"></span></p>
-        <p><span class="skeleton-line"></span><span class="skeleton-line"></span></p>
+        <p>Prowadzimy klientów przez sprzedaż i zakup nieruchomości w Gdańsku, Gdyni i Sopocie. Znamy lokalne ceny, kupujących i to, co naprawdę decyduje o szybkiej transakcji.</p>
+        <p>Każda oferta zaczyna się od rzetelnej wyceny i profesjonalnej sesji zdjęciowej. Nie obiecujemy cudów — pokazujemy realny plan i prowadzimy sprawę aż do podpisania aktu notarialnego.</p>
+        <div class="about-sign">
+          <div>
+            <div class="nm">Daria Bohuslavska</div>
+            <div class="rl">Założycielka biura</div>
+          </div>
+        </div>
       </div>
     </div>
-    <div style="margin-top:80px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
-      <div class="frame reveal" style="aspect-ratio:4/5"><img src="realizacje/ImageDownloader_www.instagram.com_670436616_18077095148247188_5255415504254813937_n.jpg" alt="Zrealizowana inwestycja" loading="lazy" decoding="async" /></div>
-      <div class="frame reveal" style="aspect-ratio:4/5"><img src="realizacje/ImageDownloader_www.instagram.com_671707977_18079171430247188_6016704302313518656_n.jpg" alt="Zrealizowana inwestycja" loading="lazy" decoding="async" /></div>
-      <div class="frame reveal" style="aspect-ratio:21/9"><img src="realizacje/realizacje.jpg" alt="Przegląd realizacji Daria Bohuslavska" loading="lazy" decoding="async" /></div>
+    <div class="wrap about-strip">
+      <div class="frame reveal" style="aspect-ratio:4/5"><img src="realizacje/ImageDownloader_www.instagram.com_670436616_18077095148247188_5255415504254813937_n.jpg" alt="Zrealizowana inwestycja w Trójmieście" loading="lazy" decoding="async" /></div>
+      <div class="frame reveal" style="aspect-ratio:4/5"><img src="realizacje/ImageDownloader_www.instagram.com_671707977_18079171430247188_6016704302313518656_n.jpg" alt="Zrealizowana inwestycja w Trójmieście" loading="lazy" decoding="async" /></div>
+      <div class="frame reveal" style="aspect-ratio:4/5"><img src="assets/img/oferty/03.jpg" alt="Jasne wnętrze nieruchomości z oferty" loading="lazy" decoding="async" /></div>
     </div>
   </section>
-
 
   <section id="oferty">
     <div class="wrap">
       <div class="sec-head reveal">
         <div><p class="eyebrow">Wybrane oferty</p><h2>Oferty</h2></div>
         <p class="idx muted">Aktualny wybór nieruchomości</p>
+      </div>
+      <div class="offers">
+        <article class="card reveal">
+          <div class="frame ph"><img src="assets/img/oferty/01.jpg" alt="Apartament w nowoczesnej kamienicy w Gdańsku Wrzeszczu" loading="lazy" decoding="async" /></div>
+          <div class="meta"><span class="price">1 290 000 zł</span><span class="status">Sprzedaż</span></div>
+          <div class="loc">Apartament — Gdańsk Wrzeszcz</div>
+          <div class="specs"><span>3 pokoje</span><span>67 m²</span><span>Balkon</span></div>
+        </article>
+        <article class="card reveal">
+          <div class="frame ph"><img src="assets/img/oferty/02.jpg" alt="Dom wolnostojący z ogrodem w Gdyni Orłowie" loading="lazy" decoding="async" /></div>
+          <div class="meta"><span class="price">2 640 000 zł</span><span class="status">Sprzedaż</span></div>
+          <div class="loc">Dom — Gdynia Orłowo</div>
+          <div class="specs"><span>5 pokoi</span><span>184 m²</span><span>Ogród</span></div>
+        </article>
+        <article class="card reveal">
+          <div class="frame ph"><img src="assets/img/oferty/03.jpg" alt="Przestronne wnętrze penthouse'u w centrum Sopotu" loading="lazy" decoding="async" /></div>
+          <div class="meta"><span class="price">3 180 000 zł</span><span class="status">Rezerwacja</span></div>
+          <div class="loc">Penthouse — Sopot Centrum</div>
+          <div class="specs"><span>4 pokoje</span><span>142 m²</span><span>Taras</span></div>
+        </article>
       </div>
     </div>
   </section>
@@ -317,15 +365,19 @@
         <p class="idx muted">Zrealizowane projekty i wnętrza</p>
       </div>
       <div class="inv-grid">
-        <div class="frame inv-frame reveal"><span class="ov"></span><img src="realizacje/ImageDownloader_www.instagram.com_670436616_18077095148247188_5255415504254813937_n.jpg" alt="Zrealizowana inwestycja" loading="lazy" decoding="async" /></div>
-        <div class="frame inv-frame reveal"><span class="ov"></span><img src="realizacje/ImageDownloader_www.instagram.com_671707977_18079171430247188_6016704302313518656_n.jpg" alt="Zrealizowana inwestycja" loading="lazy" decoding="async" /></div>
+        <div class="frame inv-frame reveal"><span class="ov"></span><img src="realizacje/ImageDownloader_www.instagram.com_670436616_18077095148247188_5255415504254813937_n.jpg" alt="Zrealizowana inwestycja w Trójmieście" loading="lazy" decoding="async" /></div>
+        <div class="frame inv-frame reveal"><span class="ov"></span><img src="realizacje/ImageDownloader_www.instagram.com_671707977_18079171430247188_6016704302313518656_n.jpg" alt="Zrealizowana inwestycja w Trójmieście" loading="lazy" decoding="async" /></div>
       </div>
-      <div class="frame inv-wide reveal"><span class="ov"></span><img src="realizacje/realizacje.jpg" alt="Przegląd realizacji Daria Bohuslavska" loading="lazy" decoding="async" /></div>
+      <div class="frame inv-wide reveal"><span class="ov"></span><img src="O%20nas/realizacje.jpg" alt="Przegląd realizacji Daria Bohuslavska Nieruchomości" loading="lazy" decoding="async" /></div>
     </div>
   </section>
 
-  <section id="oferty">
+  <section id="galeria">
     <div class="wrap">
+      <div class="sec-head reveal">
+        <div><p class="eyebrow">Galeria</p><h2>Nieruchomości w obiektywie</h2></div>
+        <p class="idx muted">Wybór z naszych sesji zdjęciowych</p>
+      </div>
       <div class="gallery reveal">
         <div class="gframe"><img src="ImageDownloader_www.instagram.com_670921593_18078835325247188_9155049539082867499_n.jpg" alt="Nieruchomość z oferty" loading="lazy" decoding="async" /></div>
         <div class="gframe"><img src="ImageDownloader_www.instagram.com_710365272_18086630012247188_2046772882370373516_n.jpg" alt="Nieruchomość z oferty" loading="lazy" decoding="async" /></div>
@@ -337,16 +389,20 @@
         <div class="gframe"><img src="ImageDownloader_www.instagram.com_716871609_18086629952247188_1195794191352937915_n.jpg" alt="Nieruchomość z oferty" loading="lazy" decoding="async" /></div>
         <div class="gframe"><img src="ImageDownloader_www.instagram.com_718648864_1031112539485372_5145440387432778662_n.jpg" alt="Nieruchomość z oferty" loading="lazy" decoding="async" /></div>
       </div>
+    </div>
+  </section>
+
+  <section id="proces">
     <div class="wrap">
       <div class="sec-head reveal">
-        <div><p class="eyebrow">Jak pracuję</p><h2>Proces</h2></div>
+        <div><p class="eyebrow">Jak pracujemy</p><h2>Proces</h2></div>
         <p class="idx">Cztery kroki współpracy</p>
       </div>
       <div class="steps">
-        <div class="step reveal"><span class="n">01</span><h3>Konsultacja</h3><p><span class="skeleton-line"></span><span class="skeleton-line"></span></p></div>
-        <div class="step reveal"><span class="n">02</span><h3>Strategia</h3><p><span class="skeleton-line"></span><span class="skeleton-line"></span></p></div>
-        <div class="step reveal"><span class="n">03</span><h3>Prezentacja</h3><p><span class="skeleton-line"></span><span class="skeleton-line"></span></p></div>
-        <div class="step reveal"><span class="n">04</span><h3>Finalizacja</h3><p><span class="skeleton-line"></span><span class="skeleton-line"></span></p></div>
+        <div class="step reveal"><span class="n">01</span><h3>Konsultacja</h3><p>Spotykamy się, oglądamy nieruchomość i ustalamy realną cenę na podstawie aktualnych transakcji w okolicy.</p></div>
+        <div class="step reveal"><span class="n">02</span><h3>Strategia</h3><p>Przygotowujemy sesję zdjęciową, opis i plan promocji dopasowany do grupy kupujących.</p></div>
+        <div class="step reveal"><span class="n">03</span><h3>Prezentacja</h3><p>Publikujemy ofertę, organizujemy prezentacje i filtrujemy zainteresowanych, byś rozmawiał tylko z realnymi klientami.</p></div>
+        <div class="step reveal"><span class="n">04</span><h3>Finalizacja</h3><p>Negocjujemy warunki, pilnujemy dokumentów i jesteśmy z Tobą aż do podpisania aktu notarialnego.</p></div>
       </div>
     </div>
   </section>
@@ -354,13 +410,24 @@
   <section id="opinie">
     <div class="wrap">
       <div class="sec-head reveal">
-        <div><p class="eyebrow">Zaufali mi</p><h2>Opinie</h2></div>
+        <div><p class="eyebrow">Zaufali nam</p><h2>Opinie</h2></div>
       </div>
       <div class="quotes">
-        <figure class="quote reveal"><p><span class="skeleton-line"></span><span class="skeleton-line"></span><span class="skeleton-line"></span></p><figcaption class="who">Marek T., Gdańsk</figcaption></figure>
-        <figure class="quote reveal"><p><span class="skeleton-line"></span><span class="skeleton-line"></span><span class="skeleton-line"></span></p><figcaption class="who">Anna i Tomasz K., Sopot</figcaption></figure>
-        <figure class="quote reveal"><p><span class="skeleton-line"></span><span class="skeleton-line"></span><span class="skeleton-line"></span></p><figcaption class="who">Justyna W., Gdynia</figcaption></figure>
+        <figure class="quote reveal"><p>Mieszkanie sprzedane w niecałe trzy tygodnie, po cenie, w którą sam nie wierzyłem. Profesjonalizm na każdym etapie.</p><figcaption class="who">Marek T., Gdańsk</figcaption></figure>
+        <figure class="quote reveal"><p>Kupiliśmy dom marzeń bez stresu. Daria przejęła wszystkie formalności i tłumaczyła każdy krok.</p><figcaption class="who">Anna i Tomasz K., Sopot</figcaption></figure>
+        <figure class="quote reveal"><p>Konkret, szybki kontakt i świetne zdjęcia oferty. Polecam każdemu, kto ceni swój czas.</p><figcaption class="who">Justyna W., Gdynia</figcaption></figure>
       </div>
+    </div>
+  </section>
+
+  <section id="zespol">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div><p class="eyebrow">Ludzie</p><h2>Zespół</h2></div>
+        <p class="copy idx" style="font-style:normal">Doradcy, którzy prowadzą Twoją transakcję od pierwszej rozmowy do aktu.</p>
+      </div>
+      <div class="frame team-wide reveal"><img src="assets/img/zespol/team.jpg" alt="Zespół Daria Bohuslavska Nieruchomości" loading="lazy" decoding="async" /></div>
+      <p class="team-cap reveal">Biuro Daria Bohuslavska Nieruchomości — Trójmiasto</p>
     </div>
   </section>
 
@@ -369,10 +436,11 @@
       <div class="reveal">
         <p class="eyebrow">Kontakt</p>
         <h2>Porozmawiajmy o Twojej nieruchomości</h2>
+        <p class="lede">Bezpłatna wycena i niezobowiązująca rozmowa. Zwykle odpowiadamy tego samego dnia.</p>
       </div>
       <div class="contact-list reveal">
         <div class="contact-row"><span class="lbl">Telefon</span><a href="tel:+48609100397">+48 609 100 397</a></div>
-        <div class="contact-row"><span class="lbl">Email</span><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></div>
+        <div class="contact-row"><span class="lbl">Email</span><a href="mailto:kontakt@bohuslavska.pl">kontakt@bohuslavska.pl</a></div>
         <div class="contact-row"><span class="lbl">Instagram</span><a href="https://instagram.com/d.bohuslavska" target="_blank" rel="noopener">@d.bohuslavska</a></div>
       </div>
     </div>
@@ -382,7 +450,8 @@
 <footer>
   <div class="wrap foot">
     <span class="logo" style="font-size:1.05rem">Daria <span style="color:var(--accent)">Bohuslavska</span></span>
-    <span>Nieruchomości | Trójmiasto</span>
+    <span>Nieruchomości · Trójmiasto</span>
+    <span class="foot-links"><a href="#oferty">Oferty</a><a href="#kontakt">Kontakt</a></span>
     <span>© 2026 Wszelkie prawa zastrzeżone</span>
   </div>
 </footer>
@@ -391,14 +460,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 <script>
-  const tokenRe = /\{\{[^}]+\}\}/
-  document.querySelectorAll('*').forEach(el => {
-    if (el.children.length === 0 && tokenRe.test(el.textContent)) {
-      const host = el.closest('.card,.step,.quote,.contact-row,figure') || el
-      host.style.display = 'none'
-    }
-  })
-
   document.querySelectorAll('.frame img').forEach(img => {
     const fail = () => img.closest('.frame').classList.add('is-fallback')
     img.addEventListener('error', fail)
@@ -406,15 +467,26 @@
   })
 
   const header = document.getElementById('header')
-  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 30)
-  onScroll(); window.addEventListener('scroll', onScroll)
+  const progress = document.getElementById('progress')
+  const onScroll = () => {
+    header.classList.toggle('scrolled', window.scrollY > 30)
+    const h = document.documentElement.scrollHeight - window.innerHeight
+    progress.style.width = (h > 0 ? window.scrollY / h * 100 : 0) + '%'
+  }
+  onScroll(); window.addEventListener('scroll', onScroll, { passive: true })
 
   const burger = document.getElementById('burger')
   const mobile = document.getElementById('mobileMenu')
-  const toggle = () => { burger.classList.toggle('open'); mobile.classList.toggle('open') }
+  const toggle = () => {
+    const open = burger.classList.toggle('open')
+    mobile.classList.toggle('open', open)
+    burger.setAttribute('aria-expanded', open)
+  }
   burger.addEventListener('click', toggle)
-  mobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { burger.classList.remove('open'); mobile.classList.remove('open') }))
+  mobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { burger.classList.remove('open'); mobile.classList.remove('open'); burger.setAttribute('aria-expanded', false) }))
 
+  const links = [...document.querySelectorAll('.menu a.link')]
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const lenis = new Lenis({ duration: 1.15, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) })
   function raf(time){ lenis.raf(time); requestAnimationFrame(raf) }
   requestAnimationFrame(raf)
@@ -429,58 +501,26 @@
   gsap.registerPlugin(ScrollTrigger)
   lenis.on('scroll', ScrollTrigger.update)
 
-  gsap.utils.toArray('#proof .stat').forEach((stat, i) => {
+  links.forEach(link => {
+    const sec = document.querySelector(link.getAttribute('href'))
+    if (!sec) return
     ScrollTrigger.create({
-      trigger: stat, start: 'top 80%',
-      onEnter: () => {
-        stat.classList.add('unblur');
-        stat.querySelectorAll('.lbl').forEach(el => el.classList.add('unblur'));
-      }
+      trigger: sec, start: 'top center', end: 'bottom center',
+      onToggle: self => { if (self.isActive) { links.forEach(l => l.classList.remove('active')); link.classList.add('active') } }
     })
   })
 
-  ScrollTrigger.create({
-    trigger: '#proof', start: 'top 80%',
-    onEnter: () => {
-      document.querySelectorAll('#proof .proof-quote').forEach(el => el.classList.add('unblur'));
-    }
-  })
-
-  gsap.utils.toArray('.hero .reveal').forEach((el, i) => {
-    gsap.to(el, {
-      opacity: 1, y: 0, duration: 1.2, delay: i * 0.12, ease: 'power3.out',
-      scrollTrigger: { trigger: document.body, start: 'top-=1 top' }
+  if (!reduce) {
+    gsap.to('.hero .reveal', { opacity: 1, y: 0, duration: 1.2, stagger: 0.12, delay: 0.15, ease: 'power3.out' })
+    gsap.utils.toArray('section:not(#hero)').forEach(sec => {
+      gsap.to(sec.querySelectorAll('.reveal'), {
+        opacity: 1, y: 0, duration: 0.95, stagger: 0.1, ease: 'power3.out',
+        scrollTrigger: { trigger: sec, start: 'top 80%' }
+      })
     })
-  })
-
-  gsap.utils.toArray('section:not(#hero)').forEach(sec => {
-    const items = sec.querySelectorAll('.reveal')
-    gsap.to(items, {
-      opacity: 1, y: 0, duration: 0.95, stagger: 0.1, ease: 'power3.out',
-      scrollTrigger: { trigger: sec, start: 'top 78%' }
-    })
-  })
-
-  gsap.utils.toArray('#proces .step').forEach((step, i) => {
-    ScrollTrigger.create({
-      trigger: step, start: 'top 80%',
-      onEnter: () => gsap.delayedCall(0.2 + i * 0.12, () => step.classList.add('unblur'))
-    })
-  })
-
-  gsap.utils.toArray('#opinie .quote').forEach((quote, i) => {
-    ScrollTrigger.create({
-      trigger: quote, start: 'top 80%',
-      onEnter: () => gsap.delayedCall(0.1 + i * 0.08, () => quote.classList.add('unblur'))
-    })
-  })
-
-  gsap.utils.toArray('.blur-text').forEach((el) => {
-    ScrollTrigger.create({
-      trigger: el, start: 'top 80%',
-      onEnter: () => el.classList.add('unblur')
-    })
-  })
+  } else {
+    gsap.set('.reveal', { opacity: 1, y: 0 })
+  }
 </script>
 </body>
 </html>
