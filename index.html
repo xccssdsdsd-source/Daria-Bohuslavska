@@ -186,6 +186,7 @@
   #zespol .team-wide{aspect-ratio:16/9;border-radius:2px;margin-top:14px;box-shadow:var(--shadow-2)}
   #zespol .copy{max-width:54ch;font-size:1.12rem;color:var(--ink-soft)}
   .team-cap{margin-top:20px;font-size:.92rem;letter-spacing:.04em;color:var(--ink-soft);text-align:center}
+  #proces .sec-head,#proces .steps{filter:blur(6px);user-select:none;pointer-events:none}
 
   #kontakt{background:var(--paper-2)}
   .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
@@ -197,6 +198,13 @@
   .contact-row .lbl{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
   .contact-row a,.contact-row span{font-family:'Bodoni Moda',serif;font-size:1.5rem;transition:color .3s ease}
   .contact-row a:hover,.contact-row a:focus-visible{color:var(--accent)}
+  .contact-form{display:flex;flex-direction:column;gap:18px;margin-top:34px}
+  .contact-form .field{display:flex;flex-direction:column;gap:7px}
+  .contact-form label{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
+  .contact-form input,.contact-form textarea{font-family:inherit;font-size:1rem;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px;transition:border-color .3s ease,box-shadow .3s ease}
+  .contact-form textarea{resize:vertical;min-height:130px}
+  .contact-form input:focus-visible,.contact-form textarea:focus-visible{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .contact-form .btn{align-self:flex-start;border:none;cursor:pointer}
 
   footer{padding:46px 0;border-top:1px solid var(--line);background:var(--paper)}
   .foot{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:.82rem;color:var(--ink-soft);letter-spacing:.04em}
@@ -413,17 +421,6 @@
     </div>
   </section>
 
-  <section id="zespol">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <div><p class="eyebrow">Ludzie</p><h2>Zespół</h2></div>
-        <p class="copy idx" style="font-style:normal">Doradcy, którzy prowadzą Twoją transakcję od pierwszej rozmowy do aktu.</p>
-      </div>
-      <div class="frame team-wide reveal"><img src="assets/img/zespol/team.jpg" alt="Zespół Daria Bohuslavska Nieruchomości" loading="lazy" decoding="async" /></div>
-      <p class="team-cap reveal">Biuro Daria Bohuslavska Nieruchomości — Trójmiasto</p>
-    </div>
-  </section>
-
   <section id="kontakt">
     <div class="wrap contact-grid">
       <div class="reveal">
@@ -435,6 +432,13 @@
         <div class="contact-row"><span class="lbl">Telefon</span><a href="tel:+48609100397">+48 609 100 397</a></div>
         <div class="contact-row"><span class="lbl">Email</span><a href="mailto:kontakt@bohuslavska.pl">kontakt@bohuslavska.pl</a></div>
         <div class="contact-row"><span class="lbl">Instagram</span><a href="https://instagram.com/d.bohuslavska" target="_blank" rel="noopener">@d.bohuslavska</a></div>
+        <form class="contact-form" action="#" method="post">
+          <div class="field"><label for="cf-name">Imię i nazwisko</label><input id="cf-name" name="name" type="text" required></div>
+          <div class="field"><label for="cf-email">Email</label><input id="cf-email" name="email" type="email" required></div>
+          <div class="field"><label for="cf-phone">Telefon</label><input id="cf-phone" name="phone" type="tel"></div>
+          <div class="field"><label for="cf-msg">Wiadomość</label><textarea id="cf-msg" name="message" required></textarea></div>
+          <button class="btn" type="submit">Wyślij wiadomość</button>
+        </form>
       </div>
     </div>
   </section>
