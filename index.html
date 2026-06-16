@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Daria Bohuslavska — Nieruchomości | Trójmiasto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#f4f0e9;
+    --paper-2:#ece6db;
+    --ink:#1c1916;
+    --ink-soft:#574f46;
+    --line:#cdc4b4;
+    --accent:#8c2f2a;
+    --accent-deep:#6f231f;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Hanken Grotesk',sans-serif;
+    font-weight:400;
+    line-height:1.7;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent);color:var(--paper)}
+  h1,h2,h3,h4{font-family:'Bodoni Moda',serif;font-weight:500;line-height:1.02;letter-spacing:-0.02em}
+  a{color:inherit;text-decoration:none}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 28px}
+  .eyebrow{font-family:'Hanken Grotesk',sans-serif;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;font-weight:500;color:var(--accent)}
+  .muted{color:var(--ink-soft)}
+
+  /* image frame + blur fallback */
+  .frame{position:relative;overflow:hidden;background:var(--paper-2)}
+  .frame::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(28,25,22,.06);pointer-events:none}
+  .frame img{transition:opacity .9s ease,transform 1.4s cubic-bezier(.2,.7,.2,1)}
+  .frame.is-fallback img{opacity:0}
+  .frame.is-fallback{
+    background:
+      radial-gradient(120% 90% at 20% 10%,rgba(140,47,42,.22),transparent 60%),
+      radial-gradient(120% 120% at 90% 90%,rgba(28,25,22,.18),transparent 55%),
+      linear-gradient(135deg,var(--paper-2),#ddd3c2);
+  }
+  .frame.is-fallback::before{
+    content:"";position:absolute;inset:14px;border:1px solid rgba(28,25,22,.16);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    background:repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 10px,rgba(28,25,22,.03) 10px 20px);
+  }
+
+  /* header */
+  header{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .4s ease,box-shadow .4s ease,padding .4s ease;padding:22px 0}
+  header.scrolled{background:rgba(244,240,233,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line);padding:14px 0}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .logo{font-family:'Bodoni Moda',serif;font-size:1.32rem;letter-spacing:-.01em;font-weight:600}
+  .logo span{color:var(--accent)}
+  .menu{display:flex;align-items:center;gap:34px}
+  .menu a.link{position:relative;font-size:.88rem;letter-spacing:.02em;color:var(--ink-soft);transition:color .3s ease}
+  .menu a.link::after{content:"";position:absolute;left:0;bottom:-6px;width:100%;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+  .menu a.link:hover,.menu a.link:focus-visible{color:var(--ink)}
+  .menu a.link:hover::after,.menu a.link:focus-visible::after{transform:scaleX(1)}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-size:.86rem;letter-spacing:.02em;font-weight:500;padding:13px 22px;border-radius:999px;background:var(--ink);color:var(--paper);transition:transform .3s ease,background .3s ease;will-change:transform}
+  .btn:hover,.btn:focus-visible{background:var(--accent);transform:translateY(-2px)}
+  .btn:active{transform:translateY(0)}
+  .btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+  .btn-ghost:hover,.btn-ghost:focus-visible{background:var(--ink);color:var(--paper);box-shadow:inset 0 0 0 1px var(--ink)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+  .burger{display:none;flex-direction:column;gap:5px;width:42px;height:42px;align-items:center;justify-content:center;border-radius:50%;box-shadow:inset 0 0 0 1px var(--line);background:transparent}
+  .burger span{width:18px;height:1.5px;background:var(--ink);transition:transform .35s ease,opacity .3s ease}
+  .burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+  .mobile-menu{position:fixed;inset:0;z-index:45;background:var(--paper);transform:translateY(-100%);transition:transform .5s cubic-bezier(.7,0,.2,1);display:flex;flex-direction:column;justify-content:center;padding:0 32px}
+  .mobile-menu.open{transform:translateY(0)}
+  .mobile-menu a{font-family:'Bodoni Moda',serif;font-size:2.4rem;padding:10px 0;border-bottom:1px solid var(--line)}
+  .mobile-menu .mcta{margin-top:32px}
+
+  /* hero — hidden until first scroll */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;padding:0;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0}
+  .hero-bg img{transform:scale(1.06);object-position:center 28%}
+  .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,17,14,.5) 0%,rgba(20,17,14,.12) 32%,rgba(20,17,14,.55) 66%,rgba(20,17,14,.9) 100%)}
+  .hero .wrap{position:relative;z-index:2;width:100%;padding-top:120px;padding-bottom:80px;text-align:center;display:flex;flex-direction:column;align-items:center}
+  .hero .tagline{font-family:'Bodoni Moda',serif;font-style:italic;font-size:clamp(2.4rem,6vw,5rem);color:var(--paper);line-height:1.1;letter-spacing:-0.02em;max-width:16ch}
+  .hero .divider{width:48px;height:1px;background:rgba(244,240,233,.35);margin:24px 0 20px}
+  .hero .services{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;font-size:clamp(.78rem,1.4vw,1rem);letter-spacing:.28em;text-transform:uppercase;color:rgba(244,240,233,.7)}
+  .hero .reveal{opacity:0;transform:translateY(18px)}
+
+  /* social proof */
+  .proof{padding:70px 0;background:var(--ink);color:var(--paper)}
+  .proof .eyebrow{color:#e0a39c}
+  .proof-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:46px}
+  .proof-quote{font-family:'Bodoni Moda',serif;font-style:italic;font-size:clamp(1.3rem,2.6vw,1.85rem);line-height:1.4;max-width:24ch;color:var(--paper);filter:blur(12px);opacity:.35;transition:filter 1s ease,opacity 1s ease}
+  .proof-quote.unblur{filter:blur(0);opacity:1}
+  .proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(244,240,233,.16)}
+  .stat{background:var(--ink);padding:34px 30px;display:flex;flex-direction:column;gap:8px}
+  .stat .num{font-family:'Bodoni Moda',serif;font-size:clamp(2.6rem,5vw,3.6rem);line-height:1;color:#e0a39c}
+  .stat .lbl{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,240,233,.7);filter:blur(12px);opacity:.35;transition:filter 1s ease,opacity 1s ease}
+  .stat.unblur .lbl{filter:blur(0);opacity:1}
+
+  /* nasze inwestycje */
+  .inv-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+  .inv-frame{aspect-ratio:4/5;border-radius:2px}
+  .inv-frame:nth-child(1){margin-top:46px}
+  .inv-wide{aspect-ratio:21/9;border-radius:2px;margin-top:28px}
+  .inv-wide .ov,.inv-frame .ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,17,14,.5),transparent 55%);z-index:1;pointer-events:none}
+  .inv-frame img,.inv-wide img{transition:transform 1.3s cubic-bezier(.2,.7,.2,1)}
+  .inv-frame:hover img,.inv-wide:hover img{transform:scale(1.05)}
+
+  /* gallery (oferty) */
+  .gallery{columns:3;column-gap:22px}
+  .gframe{position:relative;overflow:hidden;background:var(--paper-2);margin:0 0 22px;break-inside:avoid;border-radius:2px}
+  .gframe::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(28,25,22,.08);background:linear-gradient(to top,rgba(20,17,14,.42),transparent 50%);pointer-events:none}
+  .gframe img{width:100%;height:auto;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+  .gframe:hover img{transform:scale(1.05)}
+
+  section{padding:110px 0;position:relative}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:60px;flex-wrap:wrap}
+  .sec-head h2{font-size:clamp(2.4rem,6vw,4.6rem)}
+  .sec-head .idx{font-family:'Bodoni Moda',serif;font-style:italic;font-size:1rem;color:var(--accent)}
+
+  /* about */
+  #o-mnie .grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:78px;align-items:center}
+  .about-media{position:relative;aspect-ratio:5/6}
+  .about-media .main{position:absolute;inset:0;border-radius:2px}
+  .about-media .inset{position:absolute;right:-30px;bottom:-36px;width:48%;aspect-ratio:3/4;border-radius:2px;box-shadow:0 30px 60px -28px rgba(28,25,22,.55),0 8px 20px -12px rgba(140,47,42,.4)}
+  .about-media .inset::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 4px var(--paper)}
+  .about-copy p{font-size:1.12rem;color:var(--ink-soft);max-width:46ch}
+  .about-copy p + p{margin-top:16px}
+  .about-copy h2{font-size:clamp(2.2rem,5vw,3.8rem);margin:14px 0 26px}
+
+  /* offers */
+  .offers{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+  .card{display:flex;flex-direction:column;gap:18px}
+  .card .ph{aspect-ratio:4/5;border-radius:2px}
+  .card:nth-child(2){margin-top:48px}
+  .card .meta{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+  .card .price{font-family:'Bodoni Moda',serif;font-size:1.5rem;color:var(--ink)}
+  .card .status{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);padding:5px 12px;border:1px solid var(--line);border-radius:999px}
+  .card .loc{font-size:1.05rem;color:var(--ink)}
+  .card .specs{display:flex;gap:18px;font-size:.9rem;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:14px}
+
+  /* process */
+  #proces{background:var(--ink);color:var(--paper)}
+  #proces .eyebrow,#proces .sec-head .idx{color:#d98a82}
+  #proces .sec-head h2{color:var(--paper)}
+  .steps{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(244,240,233,.16)}
+  .step{background:var(--ink);padding:46px 38px;display:flex;flex-direction:column;gap:16px;transition:background .4s ease}
+  .step:hover{background:#262019}
+  .step .n{font-family:'Bodoni Moda',serif;font-size:3.4rem;font-style:italic;color:#d98a82;line-height:1}
+  .step h3{font-size:1.5rem;color:var(--paper)}
+  .step p{color:rgba(244,240,233,.72);font-size:1rem;filter:blur(12px);opacity:.35;transition:filter 1s ease,opacity 1s ease}
+  .step.unblur p{filter:blur(0);opacity:1}
+
+  /* blur-text — rozmyte teksty odblurowujące się przy scrollu */
+  .blur-text{filter:blur(12px);opacity:.4;transition:filter 1s ease,opacity 1s ease}
+  .blur-text.unblur{filter:blur(0);opacity:1}
+  
+  /* skeleton lines placeholder */
+  .skeleton-line{background:linear-gradient(90deg,rgba(28,25,22,.12),rgba(28,25,22,.08),rgba(28,25,22,.12));background-size:200% 100%;animation:shimmer 2s infinite;height:0.9em;border-radius:2px;filter:blur(14px);opacity:.35}
+  .skeleton-line:nth-child(1){width:95%}
+  .skeleton-line:nth-child(2){width:88%}
+  .skeleton-line:nth-child(3){width:92%}
+  .skeleton-line:nth-child(4){width:85%}
+  @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+  /* opinie */
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+  .quote{padding:44px 40px;background:var(--paper-2);border-radius:2px;position:relative}
+  .quote::before{content:"\201C";font-family:'Bodoni Moda',serif;font-size:6rem;color:var(--accent);opacity:.28;position:absolute;top:6px;left:24px;line-height:1}
+  .quote p{font-family:'Bodoni Moda',serif;font-style:italic;font-size:1.4rem;line-height:1.4;position:relative;color:var(--ink);filter:blur(12px);opacity:.35;transition:filter 1s ease,opacity 1s ease}
+  .quote.unblur p{filter:blur(0);opacity:1}
+  .quote .who{margin-top:24px;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+
+  /* zespol */
+  .team-wide{aspect-ratio:16/9;border-radius:2px;margin-top:14px}
+  .team-cap{margin-top:18px;font-size:.92rem;letter-spacing:.04em;color:var(--ink-soft);text-align:center}
+  #zespol .copy{max-width:54ch;font-size:1.12rem;color:var(--ink-soft)}
+
+  /* kontakt */
+  #kontakt{background:var(--paper-2)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+  #kontakt h2{font-size:clamp(2.6rem,7vw,5.4rem)}
+  .contact-list{display:flex;flex-direction:column;gap:2px}
+  .contact-row{display:flex;flex-direction:column;gap:4px;padding:24px 0;border-top:1px solid var(--line)}
+  .contact-row:last-child{border-bottom:1px solid var(--line)}
+  .contact-row .lbl{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
+  .contact-row a,.contact-row span{font-family:'Bodoni Moda',serif;font-size:1.5rem;transition:color .3s ease}
+  .contact-row a:hover,.contact-row a:focus-visible{color:var(--accent)}
+
+  footer{padding:46px 0;border-top:1px solid var(--line);background:var(--paper)}
+  .foot{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:.82rem;color:var(--ink-soft);letter-spacing:.04em}
+
+  .reveal{opacity:0;transform:translateY(34px)}
+
+  @media(max-width:900px){
+    .menu{display:none}
+    .burger{display:flex}
+    #o-mnie .grid{grid-template-columns:1fr;gap:80px}
+    .about-media{aspect-ratio:4/3;max-width:440px}
+    .about-media .inset{width:42%}
+    .proof-grid{grid-template-columns:repeat(2,1fr)}
+    .inv-grid{grid-template-columns:1fr;gap:24px}
+    .inv-frame:nth-child(1){margin-top:0}
+    .inv-wide{aspect-ratio:16/9}
+    .gallery{columns:2}
+    .steps{grid-template-columns:1fr}
+    .quotes{grid-template-columns:1fr}
+    .contact-grid{grid-template-columns:1fr;gap:34px}
+    section{padding:78px 0}
+    .hero .wrap{padding-top:120px;padding-bottom:60px}
+  }
+  @media(max-width:520px){
+    .wrap{padding:0 20px}
+    .gallery{columns:1}
+    .proof-grid{grid-template-columns:1fr}
+    .hero .cta-row{flex-direction:column;align-items:stretch}
+    .hero .cta-row .btn{justify-content:center}
+  }
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="wrap nav">
+    <a href="#top" class="logo">Daria <span>Bohuslavska</span></a>
+    <nav class="menu">
+      <a class="link" href="#o-mnie">O nas</a>
+      <a class="link" href="#inwestycje">Inwestycje</a>
+      <a class="link" href="#oferty">Oferty</a>
+      <a class="link" href="#proces">Proces</a>
+      <a class="link" href="#opinie">Opinie</a>
+      <a class="link" href="#kontakt">Kontakt</a>
+      <a class="btn" href="#kontakt">Napisz wiadomość</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#o-mnie">O nas</a>
+  <a href="#inwestycje">Inwestycje</a>
+  <a href="#oferty">Oferty</a>
+  <a href="#proces">Proces</a>
+  <a href="#opinie">Opinie</a>
+  <a href="#kontakt">Kontakt</a>
+  <a class="btn mcta" href="#kontakt">Napisz wiadomość</a>
+</div>
+
+<main id="top">
+  <section class="hero" id="hero">
+    <div class="hero-bg"><div class="frame" style="height:100%"><img src="assets/img/zespol/team.jpg" alt="Zespół Daria Bohuslavska Nieruchomości" loading="eager" /></div></div>
+    <div class="wrap">
+      <p class="tagline reveal">Detale mają znaczenie</p>
+      <div class="divider reveal"></div>
+      <div class="services reveal"><span>Sprzedaż</span><span>•</span><span>Wynajem</span><span>•</span><span>Analiza</span></div>
+    </div>
+  </section>
+
+  <section class="proof" id="proof">
+    <div class="wrap">
+      <div class="proof-head reveal">
+        <p class="eyebrow">Zaufanie klientów</p>
+        <p class="proof-quote" style="filter:blur(16px);opacity:.2">Liczby, które budują się latami pracy na rynku Trójmiasta.</p>
+      </div>
+      <div class="proof-grid">
+        <div class="stat reveal"><span class="num">120+</span><span class="lbl">Sfinalizowanych transakcji</span></div>
+        <div class="stat reveal"><span class="num">8 lat</span><span class="lbl">Doświadczenia na rynku</span></div>
+        <div class="stat reveal"><span class="num">98%</span><span class="lbl">Klientów poleca dalej</span></div>
+        <div class="stat reveal"><span class="num">14 dni</span><span class="lbl">Średni czas sprzedaży</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="o-mnie">
+    <div class="wrap grid">
+      <div class="reveal">
+        <div class="about-media">
+          <div class="frame main"><img src="O%20nas/team.jpg" alt="Zespół Daria Bohuslavska Nieruchomości" /></div>
+          <div class="frame inset"><img src="O%20nas/realizacje.jpg" alt="Wnętrze nieruchomości z oferty" /></div>
+        </div>
+      </div>
+      <div class="about-copy reveal">
+        <p class="eyebrow">O nas</p>
+        <h2>Spokojna pewność na każdym etapie</h2>
+        <p><span class="skeleton-line"></span><span class="skeleton-line"></span><span class="skeleton-line"></span></p>
+        <p><span class="skeleton-line"></span><span class="skeleton-line"></span></p>
+      </div>
+    </div>
+    <div style="margin-top:80px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <div class="frame reveal" style="aspect-ratio:4/5"><img src="realizacje/ImageDownloader_www.instagram.com_670436616_18077095148247188_5255415504254813937_n.jpg" alt="Zrealizowana inwestycja" loading="lazy" decoding="async" /></div>
+      <div class="frame reveal" style="aspect-ratio:4/5"><img src="realizacje/ImageDownloader_www.instagram.com_671707977_18079171430247188_6016704302313518656_n.jpg" alt="Zrealizowana inwestycja" loading="lazy" decoding="async" /></div>
+      <div class="frame reveal" style="aspect-ratio:21/9"><img src="realizacje/realizacje.jpg" alt="Przegląd realizacji Daria Bohuslavska" loading="lazy" decoding="async" /></div>
+    </div>
+  </section>
+
+
+  <section id="oferty">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div><p class="eyebrow">Wybrane oferty</p><h2>Oferty</h2></div>
+        <p class="idx muted">Aktualny wybór nieruchomości</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="inwestycje">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div><p class="eyebrow">Portfolio</p><h2>Nasze inwestycje</h2></div>
+        <p class="idx muted">Zrealizowane projekty i wnętrza</p>
+      </div>
+      <div class="inv-grid">
+        <div class="frame inv-frame reveal"><span class="ov"></span><img src="realizacje/ImageDownloader_www.instagram.com_670436616_18077095148247188_5255415504254813937_n.jpg" alt="Zrealizowana inwestycja" loading="lazy" decoding="async" /></div>
+        <div class="frame inv-frame reveal"><span class="ov"></span><img src="realizacje/ImageDownloader_www.instagram.com_671707977_18079171430247188_6016704302313518656_n.jpg" alt="Zrealizowana inwestycja" loading="lazy" decoding="async" /></div>
+      </div>
+      <div class="frame inv-wide reveal"><span class="ov"></span><img src="realizacje/realizacje.jpg" alt="Przegląd realizacji Daria Bohuslavska" loading="lazy" decoding="async" /></div>
+    </div>
+  </section>
+
+  <section id="oferty">
+    <div class="wrap">
+      <div class="gallery reveal">
+        <div class="gframe"><img src="ImageDownloader_www.instagram.com_670921593_18078835325247188_9155049539082867499_n.jpg" alt="Nieruchomość z oferty" loading="lazy" decoding="async" /></div>
+        <div class="gframe"><img src="ImageDownloader_www.instagram.com_710365272_18086630012247188_2046772882370373516_n.jpg" alt="Nieruchomość z oferty" loading="lazy" decoding="async" /></div>
+        <div class="gframe"><img src="ImageDownloader_www.instagram.com_710596453_18086629970247188_8677308031399659708_n.jpg" alt="Nieruchomość z oferty" loading="lazy" decoding="async" /></div>
+        <div class="gframe"><img src="ImageDownloader_www.instagram.com_712152971_18086630075247188_7603210726591159778_n.jpg" alt="Nieruchomość z oferty" loading="lazy" decoding="async" /></div>
+        <div class="gframe"><img src="ImageDownloader_www.instagram.com_714003592_18086629973247188_3383305300793075419_n.jpg" alt="Nieruchomość z oferty" loading="lazy" decoding="async" /></div>
+        <div class="gframe"><img src="ImageDownloader_www.instagram.com_714955360_18086630024247188_4253307678359262283_n.jpg" alt="Nieruchomość z oferty" loading="lazy" decoding="async" /></div>
+        <div class="gframe"><img src="ImageDownloader_www.instagram.com_715338445_18086630009247188_4115713673195809677_n.jpg" alt="Nieruchomość z oferty" loading="lazy" decoding="async" /></div>
+        <div class="gframe"><img src="ImageDownloader_www.instagram.com_716871609_18086629952247188_1195794191352937915_n.jpg" alt="Nieruchomość z oferty" loading="lazy" decoding="async" /></div>
+        <div class="gframe"><img src="ImageDownloader_www.instagram.com_718648864_1031112539485372_5145440387432778662_n.jpg" alt="Nieruchomość z oferty" loading="lazy" decoding="async" /></div>
+      </div>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div><p class="eyebrow">Jak pracuję</p><h2>Proces</h2></div>
+        <p class="idx">Cztery kroki współpracy</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><span class="n">01</span><h3>Konsultacja</h3><p><span class="skeleton-line"></span><span class="skeleton-line"></span></p></div>
+        <div class="step reveal"><span class="n">02</span><h3>Strategia</h3><p><span class="skeleton-line"></span><span class="skeleton-line"></span></p></div>
+        <div class="step reveal"><span class="n">03</span><h3>Prezentacja</h3><p><span class="skeleton-line"></span><span class="skeleton-line"></span></p></div>
+        <div class="step reveal"><span class="n">04</span><h3>Finalizacja</h3><p><span class="skeleton-line"></span><span class="skeleton-line"></span></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="opinie">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div><p class="eyebrow">Zaufali mi</p><h2>Opinie</h2></div>
+      </div>
+      <div class="quotes">
+        <figure class="quote reveal"><p><span class="skeleton-line"></span><span class="skeleton-line"></span><span class="skeleton-line"></span></p><figcaption class="who">Marek T., Gdańsk</figcaption></figure>
+        <figure class="quote reveal"><p><span class="skeleton-line"></span><span class="skeleton-line"></span><span class="skeleton-line"></span></p><figcaption class="who">Anna i Tomasz K., Sopot</figcaption></figure>
+        <figure class="quote reveal"><p><span class="skeleton-line"></span><span class="skeleton-line"></span><span class="skeleton-line"></span></p><figcaption class="who">Justyna W., Gdynia</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontakt">
+    <div class="wrap contact-grid">
+      <div class="reveal">
+        <p class="eyebrow">Kontakt</p>
+        <h2>Porozmawiajmy o Twojej nieruchomości</h2>
+      </div>
+      <div class="contact-list reveal">
+        <div class="contact-row"><span class="lbl">Telefon</span><a href="tel:+48609100397">+48 609 100 397</a></div>
+        <div class="contact-row"><span class="lbl">Email</span><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></div>
+        <div class="contact-row"><span class="lbl">Instagram</span><a href="https://instagram.com/d.bohuslavska" target="_blank" rel="noopener">@d.bohuslavska</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span class="logo" style="font-size:1.05rem">Daria <span style="color:var(--accent)">Bohuslavska</span></span>
+    <span>Nieruchomości | Trójmiasto</span>
+    <span>© 2026 Wszelkie prawa zastrzeżone</span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script>
+  const tokenRe = /\{\{[^}]+\}\}/
+  document.querySelectorAll('*').forEach(el => {
+    if (el.children.length === 0 && tokenRe.test(el.textContent)) {
+      const host = el.closest('.card,.step,.quote,.contact-row,figure') || el
+      host.style.display = 'none'
+    }
+  })
+
+  document.querySelectorAll('.frame img').forEach(img => {
+    const fail = () => img.closest('.frame').classList.add('is-fallback')
+    img.addEventListener('error', fail)
+    if (img.complete && img.naturalWidth === 0) fail()
+  })
+
+  const header = document.getElementById('header')
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 30)
+  onScroll(); window.addEventListener('scroll', onScroll)
+
+  const burger = document.getElementById('burger')
+  const mobile = document.getElementById('mobileMenu')
+  const toggle = () => { burger.classList.toggle('open'); mobile.classList.toggle('open') }
+  burger.addEventListener('click', toggle)
+  mobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { burger.classList.remove('open'); mobile.classList.remove('open') }))
+
+  const lenis = new Lenis({ duration: 1.15, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) })
+  function raf(time){ lenis.raf(time); requestAnimationFrame(raf) }
+  requestAnimationFrame(raf)
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'))
+      if (t) { e.preventDefault(); lenis.scrollTo(t, { offset: -70 }) }
+    })
+  })
+
+  gsap.registerPlugin(ScrollTrigger)
+  lenis.on('scroll', ScrollTrigger.update)
+
+  gsap.utils.toArray('#proof .stat').forEach((stat, i) => {
+    ScrollTrigger.create({
+      trigger: stat, start: 'top 80%',
+      onEnter: () => {
+        stat.classList.add('unblur');
+        stat.querySelectorAll('.lbl').forEach(el => el.classList.add('unblur'));
+      }
+    })
+  })
+
+  ScrollTrigger.create({
+    trigger: '#proof', start: 'top 80%',
+    onEnter: () => {
+      document.querySelectorAll('#proof .proof-quote').forEach(el => el.classList.add('unblur'));
+    }
+  })
+
+  gsap.utils.toArray('.hero .reveal').forEach((el, i) => {
+    gsap.to(el, {
+      opacity: 1, y: 0, duration: 1.2, delay: i * 0.12, ease: 'power3.out',
+      scrollTrigger: { trigger: document.body, start: 'top-=1 top' }
+    })
+  })
+
+  gsap.utils.toArray('section:not(#hero)').forEach(sec => {
+    const items = sec.querySelectorAll('.reveal')
+    gsap.to(items, {
+      opacity: 1, y: 0, duration: 0.95, stagger: 0.1, ease: 'power3.out',
+      scrollTrigger: { trigger: sec, start: 'top 78%' }
+    })
+  })
+
+  gsap.utils.toArray('#proces .step').forEach((step, i) => {
+    ScrollTrigger.create({
+      trigger: step, start: 'top 80%',
+      onEnter: () => gsap.delayedCall(0.2 + i * 0.12, () => step.classList.add('unblur'))
+    })
+  })
+
+  gsap.utils.toArray('#opinie .quote').forEach((quote, i) => {
+    ScrollTrigger.create({
+      trigger: quote, start: 'top 80%',
+      onEnter: () => gsap.delayedCall(0.1 + i * 0.08, () => quote.classList.add('unblur'))
+    })
+  })
+
+  gsap.utils.toArray('.blur-text').forEach((el) => {
+    ScrollTrigger.create({
+      trigger: el, start: 'top 80%',
+      onEnter: () => el.classList.add('unblur')
+    })
+  })
+</script>
+</body>
+</html>
